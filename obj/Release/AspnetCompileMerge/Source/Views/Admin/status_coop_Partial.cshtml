@@ -1,0 +1,201 @@
+﻿
+
+@{
+    ViewBag.Title = "status_coop_Partial";
+
+}
+@model List<Jobb.Models.status_coop>
+@using Jobb.DAL;
+@{
+    var grid = Html.DevExpress().GridView(
+        settings =>
+        {
+            settings.Name = "stacoop";
+            settings.KeyFieldName = "ID_StaCoop";
+            settings.Width = Unit.Percentage(100);
+            settings.CallbackRouteValues = new { Controller = "Admin", Action = "status_coop_Partial" };
+            settings.SettingsEditing.BatchUpdateRouteValues = new { Controller = "Admin", Action = "Edit_status_coop" };
+            settings.SettingsEditing.Mode = GridViewEditingMode.Batch;
+            settings.SettingsEditing.BatchEditSettings.StartEditAction = GridViewBatchStartEditAction.Click;
+            settings.SettingsSearchPanel.Visible = true;
+            settings.Settings.ShowGroupPanel = true;
+            settings.SettingsBehavior.ConfirmDelete = true;
+            settings.SettingsSearchPanel.ShowClearButton = true;
+            settings.SettingsSearchPanel.ShowApplyButton = true;
+            settings.CommandColumn.ShowDeleteButton = true;
+            settings.SettingsCommandButton.NewButton.Image.IconID = IconID.SaveSaveandnew16x16office2013;
+            settings.SettingsCommandButton.DeleteButton.Image.IconID = IconID.EditDelete16x16office2013;
+            settings.SettingsCommandButton.CancelButton.Image.IconID = IconID.SaveSaveandclose16x16office2013;
+            settings.SettingsCommandButton.UpdateButton.Image.IconID = IconID.SaveSaveall16x16office2013;
+            settings.SettingsCommandButton.SearchPanelApplyButton.Image.IconID = IconID.ActionsSearch16x16devav;
+            settings.SettingsCommandButton.SearchPanelClearButton.Image.IconID = IconID.EditDelete16x16office2013;
+            settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 2;
+            settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.HideDataCellsWindowLimit;
+            settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 800;
+            settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = true;
+            settings.EditFormLayoutProperties.SettingsAdaptivity.AdaptivityMode = FormLayoutAdaptivityMode.SingleColumnWindowLimit;
+            settings.EditFormLayoutProperties.SettingsAdaptivity.SwitchToSingleColumnAtWindowInnerWidth = 600;
+            settings.CommandColumn.Visible = true;
+            settings.CommandColumn.ShowNewButtonInHeader = true;
+            settings.CommandColumn.ShowDeleteButton = true;
+            settings.SettingsBehavior.ConfirmDelete = true;
+
+            settings.Columns.Add(s =>
+            {
+
+                s.FieldName = "regis.profile.Fname";
+                s.Caption = "ชื่อนักศึกษา";
+                s.ColumnType = MVCxGridViewColumnType.ComboBox;
+                var Set = s.PropertiesEdit as ComboBoxProperties;
+                Set.DataSource = DALregis.getregis_stu();
+                Set.ValueField = "ID_Regis";
+                Set.TextField = "profile.Fname";
+
+            });
+
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "regis.company.Name_Compa";
+                s.Caption = "ชื่บริษัท";
+                s.ReadOnly = true;
+
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "COCE_C_01";
+                s.Caption = "แบบตอบรับเข้าร่วมสหกิจศึกษา";
+                s.ColumnType = MVCxGridViewColumnType.CheckBox;
+                var Set = s.PropertiesEdit as CheckBoxProperties;
+
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "date_C_01";
+                s.Caption = "วัน เวลา";
+                s.ColumnType = MVCxGridViewColumnType.DateEdit;
+                var Set = s.PropertiesEdit as DateEditProperties;
+                Set.DisplayFormatInEditMode = false;
+                Set.UseMaskBehavior = true;
+                Set.EditFormat = EditFormat.Custom;
+                Set.EditFormatString = "dd/MM/yyyy hh:mm tt";
+                Set.TimeSectionProperties.Visible = true;
+                Set.TimeSectionProperties.TimeEditProperties.EditFormat = EditFormat.Custom;
+                Set.TimeSectionProperties.TimeEditProperties.EditFormatString = "hh:mm tt";
+
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "COCE_S_02";
+                s.Caption = "ขอใบส่งตัว";
+                s.ColumnType = MVCxGridViewColumnType.CheckBox;
+                var Set = s.PropertiesEdit as CheckBoxProperties;
+
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "date_S_02";
+                s.Caption = "วัน เวลา";
+                s.ColumnType = MVCxGridViewColumnType.DateEdit;
+                var Set = s.PropertiesEdit as DateEditProperties;
+                Set.DisplayFormatInEditMode = false;
+                Set.UseMaskBehavior = true;
+                Set.EditFormat = EditFormat.Custom;
+                Set.EditFormatString = "dd/MM/yyyy hh:mm tt";
+                Set.TimeSectionProperties.Visible = true;
+                Set.TimeSectionProperties.TimeEditProperties.EditFormat = EditFormat.Custom;
+                Set.TimeSectionProperties.TimeEditProperties.EditFormatString = "hh:mm tt";
+
+            });
+
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "COCE_SC_03";
+                s.Caption = "แบบแจ้งแผนปฏิบัติงานสหกิจศึกษา";
+                s.ColumnType = MVCxGridViewColumnType.CheckBox;
+                var Set = s.PropertiesEdit as CheckBoxProperties;
+
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "date_SC_03";
+                s.Caption = "วัน เวลา";
+                s.ColumnType = MVCxGridViewColumnType.DateEdit;
+                var Set = s.PropertiesEdit as DateEditProperties;
+                Set.DisplayFormatInEditMode = false;
+                Set.UseMaskBehavior = true;
+                Set.EditFormat = EditFormat.Custom;
+                Set.EditFormatString = "dd/MM/yyyy hh:mm tt";
+                Set.TimeSectionProperties.Visible = true;
+                Set.TimeSectionProperties.TimeEditProperties.EditFormat = EditFormat.Custom;
+                Set.TimeSectionProperties.TimeEditProperties.EditFormatString = "hh:mm tt";
+
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "COCE_C_07";
+                s.Caption = "แบบประเมินผลการปฏิบัติงานของนักศึกษา";
+                s.ColumnType = MVCxGridViewColumnType.CheckBox;
+                var Set = s.PropertiesEdit as CheckBoxProperties;
+
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "date_C_07";
+                s.Caption = "วัน เวลา";
+                s.ColumnType = MVCxGridViewColumnType.DateEdit;
+                var Set = s.PropertiesEdit as DateEditProperties;
+                Set.DisplayFormatInEditMode = false;
+                Set.UseMaskBehavior = true;
+                Set.EditFormat = EditFormat.Custom;
+                Set.EditFormatString = "dd/MM/yyyy hh:mm tt";
+                Set.TimeSectionProperties.Visible = true;
+                Set.TimeSectionProperties.TimeEditProperties.EditFormat = EditFormat.Custom;
+                Set.TimeSectionProperties.TimeEditProperties.EditFormatString = "hh:mm tt";
+
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "COCE_C_08";
+                s.Caption = "หนังสือรับรองการใช้ประโยชน์ผลงาน";
+                s.ColumnType = MVCxGridViewColumnType.CheckBox;
+                var Set = s.PropertiesEdit as CheckBoxProperties;
+
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "date_C_08";
+                s.Caption = "วัน เวลา";
+                s.ColumnType = MVCxGridViewColumnType.DateEdit;
+                var Set = s.PropertiesEdit as DateEditProperties;
+                Set.DisplayFormatInEditMode = false;
+                Set.UseMaskBehavior = true;
+                Set.EditFormat = EditFormat.Custom;
+                Set.EditFormatString = "dd/MM/yyyy hh:mm tt";
+                Set.TimeSectionProperties.Visible = true;
+                Set.TimeSectionProperties.TimeEditProperties.EditFormat = EditFormat.Custom;
+                Set.TimeSectionProperties.TimeEditProperties.EditFormatString = "hh:mm tt";
+
+            });
+
+            settings.InitNewRow = (s, e) =>
+            {
+                e.NewValues["COCE_C_01"] = 0;
+                e.NewValues["COCE_S_02"] = 0;
+                e.NewValues["COCE_SC_03"] =0;
+                e.NewValues["COCE_C_07"] = 0;
+                e.NewValues["COCE_C_08"] = 0;
+            };
+
+
+            settings.CellEditorInitialize = (s, e) =>
+            {
+                ASPxEdit editor = (ASPxEdit)e.Editor;
+                editor.ValidationSettings.Display = Display.None;
+            };
+        });
+}
+@grid.Bind(Model).GetHtml()
+
+
+
+

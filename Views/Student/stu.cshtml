@@ -1,0 +1,59 @@
+﻿@model Jobb.Models.profile
+@{
+    ViewBag.Title = "stu";
+    Layout = "~/Views/Shared/Stu_Layout.cshtml";
+}
+@Html.DevExpress().FormLayout(settings =>
+{
+    settings.Name = "LoginformLayout";
+    settings.SettingsAdaptivity.AdaptivityMode = FormLayoutAdaptivityMode.SingleColumnWindowLimit;
+    settings.SettingsAdaptivity.SwitchToSingleColumnAtWindowInnerWidth = 800;
+    settings.Items.AddGroupItem(g =>
+    {
+        g.Caption = "ข้อมูลนักศึกษา";
+        g.ColCount = 2;
+        g.UseDefaultPaddings = false;
+        g.Paddings.PaddingTop = Unit.Pixel(10);
+        g.GroupBoxStyle.Caption.ForeColor = System.Drawing.SystemColors.ActiveCaptionText ;
+        g.GroupBoxDecoration = GroupBoxDecoration.HeadingLine;
+        g.GroupBoxStyle.Caption.Font.Bold = true;
+        g.GroupBoxStyle.Caption.Font.Size = 16;
+        g.Items.Add(m => m.Fname, i =>
+        {
+            i.Caption = "ชื่อ :";
+            i.NestedExtensionType = FormLayoutNestedExtensionItemType.Label;
+        });
+        g.Items.Add(m => m.Lname, i =>
+        {
+            i.Caption = "สกุล :";
+            i.NestedExtensionType = FormLayoutNestedExtensionItemType.Label;
+        });
+        g.Items.Add(m => m.Sex, i =>
+        {
+            i.Caption = "เพศ :";
+            i.NestedExtensionType = FormLayoutNestedExtensionItemType.Label;
+        });
+        g.Items.Add(m => m.Tel, i =>
+        {
+            i.Caption = "เบอร์โทร :";
+            i.NestedExtensionType = FormLayoutNestedExtensionItemType.Label;
+        });
+        g.Items.Add(m => m.Email, i =>
+        {
+
+            i.NestedExtensionType = FormLayoutNestedExtensionItemType.Label;
+        });
+        g.Items.Add(m => m.Birthday, i =>
+        {
+            i.Caption = "วันเดือนปีเกิด :";
+            i.NestedExtensionType = FormLayoutNestedExtensionItemType.Label;
+        });
+        g.Items.Add(m => m.Address, i =>
+        {
+            i.NestedExtension().Label(s => {
+            });
+            i.Width = Unit.Percentage(100);
+        });
+    });
+
+}).Bind(Model).GetHtml()

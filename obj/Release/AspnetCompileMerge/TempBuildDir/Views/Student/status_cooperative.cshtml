@@ -1,0 +1,65 @@
+﻿
+@model Jobb.Models.status_coop
+@{
+    ViewBag.Title = "status_cooperative";
+    Layout = "~/Views/Shared/Stu_Layout.cshtml";
+}
+<style>
+    .myLB
+{
+    font-size: 16px !important;
+}
+</style>
+@Html.DevExpress().FormLayout(settings =>
+{
+    settings.Name = "formLayout";
+    settings.SettingsAdaptivity.AdaptivityMode = FormLayoutAdaptivityMode.SingleColumnWindowLimit;
+    settings.SettingsAdaptivity.SwitchToSingleColumnAtWindowInnerWidth = 800;
+    settings.Items.AddGroupItem(g =>
+    {
+        g.Caption = "สถานะสหกิจ";
+        g.ColCount = 2;
+        g.UseDefaultPaddings = false;
+        g.Paddings.PaddingTop = Unit.Pixel(10);
+        g.GroupBoxStyle.Caption.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+        g.GroupBoxDecoration = GroupBoxDecoration.HeadingLine;
+        g.GroupBoxStyle.Caption.Font.Bold = true;
+        g.GroupBoxStyle.Caption.Font.Size = 16;
+        g.GroupBoxStyle.CssClass = "myLB";
+        g.Items.Add(m => m.regis.profile.Fname, i =>
+        {
+            i.Caption = "ชื่อ :";
+            i.NestedExtensionType = FormLayoutNestedExtensionItemType.Label;
+        });
+        g.Items.Add(m => m.regis.profile.Lname, i =>
+        {
+            i.Caption = "สกุล :";
+            i.NestedExtensionType = FormLayoutNestedExtensionItemType.Label;
+        });
+        g.Items.Add(m => m.COCE_C_01, i =>
+        {
+            i.Caption = "แบบตอบรับเข้าร่วมสหกิจศึกษา :";
+            i.NestedExtensionType = FormLayoutNestedExtensionItemType.Label;
+        });
+        g.Items.Add(m => m.COCE_S_02, i =>
+        {
+            i.Caption = "ขอใบส่งตัว :";
+            i.NestedExtensionType = FormLayoutNestedExtensionItemType.Label;
+        });
+        g.Items.Add(m => m.COCE_SC_03, i =>
+        {
+            i.Caption = "แบบแจ้งแผนปฏิบัติงานสหกิจศึกษา :";
+            i.NestedExtensionType = FormLayoutNestedExtensionItemType.Label;
+        });
+        g.Items.Add(m => m.COCE_C_07, i =>
+        {
+            i.Caption = "แบบประเมินผลการปฏิบัติงานของนักศึกษา :";
+            i.NestedExtensionType = FormLayoutNestedExtensionItemType.Label;
+        });
+        g.Items.Add(m => m.COCE_C_08, i =>
+        {
+            i.Caption = "หนังสือรับรองการใช้ประโยชน์ผลงาน :";
+            i.NestedExtensionType = FormLayoutNestedExtensionItemType.Label;
+        });
+    });
+}).Bind(Model).GetHtml()

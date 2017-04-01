@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    @Html.DevExpress().GetStyleSheets(
+    new StyleSheet { ExtensionSuite = ExtensionSuite.HtmlEditor },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.GridView }
+
+)
+    @Html.DevExpress().GetScripts(
+    new Script { ExtensionSuite = ExtensionSuite.HtmlEditor },
+    new Script { ExtensionSuite = ExtensionSuite.GridView }
+)
+</head>
+
+<body>
+    <div class="flex-container">
+        @Html.DevExpress().Panel(settings =>
+  {
+      settings.Name = "topPanel";
+      settings.FixedPosition = PanelFixedPosition.WindowTop;
+      settings.SettingsAdaptivity.CollapseAtWindowInnerWidth = 580;
+      settings.ControlStyle.BackColor = System.Drawing.Color.Black;
+      settings.ControlStyle.ForeColor = System.Drawing.Color.White;
+      settings.SetContent(() =>
+      {
+          ViewContext.Writer.Write("<h1>ระบบสหกิจศึกษาออนไลน์</h1>");
+
+      });
+      settings.SetExpandBarTemplateContent(c =>
+      {
+          ViewContext.Writer.Write("<div class='title'>ระบบสหกิจ</div>");
+      });
+  }).GetHtml()
+        @Html.DevExpress().Menu(settings =>
+       {
+           settings.Name = "Menu";
+           settings.Width = Unit.Percentage(100);
+           settings.EnableAdaptivity = true;
+
+           settings.Items.Add(i =>
+           {
+               i.Text = "ข้อมูลการรับสมัคร";
+               i.NavigateUrl = "~/Instructor/sign_up";
+           });
+           settings.Items.Add(i =>
+           {
+               i.Text = "รายงานการฝึกงาน";
+               i.NavigateUrl = "~/Instructor/show_appren";
+           });
+           settings.Items.Add(i =>
+           {
+               i.Text = "ที่ปรึกษาโครงงาน";
+               i.NavigateUrl = "~/Instructor/adviser";
+               i.AdaptivePriority = 1;
+           });
+           settings.Items.Add(i =>
+           {
+               i.Text = "logout";
+               i.NavigateUrl = "~/Account/logout";
+           });
+       }).GetHtml()
+        @Html.DevExpress().Panel(settings =>
+{
+    settings.Name = "MainPane";
+    settings.SetContent(RenderBody().ToHtmlString());
+}).GetHtml()
+        <footer></footer>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "adviser";
+    Layout = "~/Views/Shared/Stu_Layout.cshtml";
+}
+
+@{
+    int A = 0;
+    foreach (var i in Model)
+    {
+
+    }
+    if (A <= 1)
+    {
+       <div style="color :red">ยังไม่มีอาจารที่ปรึกษา</div>
+    }
+    else
+    {
+        @Html.DevExpress().CardView(settings =>
+        {
+            settings.Name = "sta";
+            settings.CallbackRouteValues = new { Controller = "Overview", Action = "OverviewPartial" };
+            settings.Width = Unit.Pixel(600);
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "profile.Fname";
+                s.Caption = "ชื่อนักศึกษา";
+
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "profile1.Fname";
+                s.Caption = "ชื่ออาจารย์ที่ปรึกษา";
+
+            });
+
+            settings.SettingsPager.NumericButtonCount = 6;
+            settings.SettingsPager.SettingsTableLayout.ColumnCount = 2;
+            settings.SettingsPager.SettingsTableLayout.RowsPerPage = 2;
+        }).Bind(Model).GetHtml()
+    }
+ }
+
+
+
+
+

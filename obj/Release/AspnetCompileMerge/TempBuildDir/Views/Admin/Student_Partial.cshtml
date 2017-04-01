@@ -1,0 +1,148 @@
+﻿
+@{
+    ViewBag.Title = "Student_Partial";
+
+}
+
+@model List<Jobb.Models.profile>
+@using Jobb.Models;
+@{
+    var grid = Html.DevExpress().GridView(
+        settings =>
+        {
+            settings.Name = "Ins";
+            settings.KeyFieldName = "ID";
+            settings.Width = Unit.Percentage(100);
+            settings.CallbackRouteValues = new { Controller = "Admin", Action = "Student_Partial" };
+            settings.SettingsEditing.BatchUpdateRouteValues = new { Controller = "Admin", Action = "Edit_Student" };
+            settings.SettingsEditing.Mode = GridViewEditingMode.Batch;
+            settings.SettingsEditing.BatchEditSettings.StartEditAction = GridViewBatchStartEditAction.DblClick;
+            settings.SettingsSearchPanel.Visible = true;
+            settings.SettingsBehavior.ConfirmDelete = true;
+            settings.SettingsSearchPanel.ShowClearButton = true;
+            settings.SettingsSearchPanel.ShowApplyButton = true;
+            settings.CommandColumn.ShowDeleteButton = true;
+            settings.SettingsCommandButton.NewButton.Image.IconID = IconID.SaveSaveandnew16x16office2013;
+            settings.SettingsCommandButton.DeleteButton.Image.IconID = IconID.EditDelete16x16office2013;
+            settings.SettingsCommandButton.CancelButton.Image.IconID = IconID.SaveSaveandclose16x16office2013;
+            settings.SettingsCommandButton.UpdateButton.Image.IconID = IconID.SaveSaveall16x16office2013;
+            settings.SettingsCommandButton.SearchPanelApplyButton.Image.IconID = IconID.ActionsSearch16x16devav;
+            settings.SettingsCommandButton.SearchPanelClearButton.Image.IconID = IconID.EditDelete16x16office2013;
+            settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 2;
+            settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.HideDataCellsWindowLimit;
+            settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 800;
+            settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = true;
+            settings.EditFormLayoutProperties.SettingsAdaptivity.AdaptivityMode = FormLayoutAdaptivityMode.SingleColumnWindowLimit;
+            settings.EditFormLayoutProperties.SettingsAdaptivity.SwitchToSingleColumnAtWindowInnerWidth = 600;
+            settings.CommandColumn.Visible = true;
+            settings.CommandColumn.ShowNewButtonInHeader = true;
+            settings.CommandColumn.ShowDeleteButton = true;
+            settings.SettingsBehavior.ConfirmDelete = true;
+
+
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "ID_Stu";
+                s.Caption = "รหัสนักศึกษา";
+                s.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                var Set = s.PropertiesEdit as SpinEditProperties;
+                Set.NumberFormat = SpinEditNumberFormat.Number;
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "Fname";
+                s.Caption = "ชื่อ";
+                s.ColumnType = MVCxGridViewColumnType.TextBox;
+                var Set = s.PropertiesEdit as TextBoxProperties;
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "Lname";
+                s.Caption = "นามสกุล";
+                s.ColumnType = MVCxGridViewColumnType.TextBox;
+                var Set = s.PropertiesEdit as TextBoxProperties;
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "Birthday";
+                s.Caption = "วัน เดือน ปีเกิด";
+                s.ColumnType = MVCxGridViewColumnType.DateEdit;
+                var Set = s.PropertiesEdit as DateEditProperties;
+                Set.DisplayFormatInEditMode = false;
+                Set.UseMaskBehavior = true;
+                Set.EditFormat = EditFormat.Custom;
+                Set.EditFormatString = "dd/MM/yyyy hh:mm tt";
+                Set.TimeSectionProperties.Visible = true;
+                Set.TimeSectionProperties.TimeEditProperties.EditFormat = EditFormat.Custom;
+                Set.TimeSectionProperties.TimeEditProperties.EditFormatString = "hh:mm tt";
+            });
+
+
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "Tel";
+                s.Caption = "เบอร์โทร";
+                s.ColumnType = MVCxGridViewColumnType.TextBox;
+                var Set = s.PropertiesEdit as TextBoxProperties;
+                Set.DisplayFormatString = "00-0000-0000";
+                Set.MaxLength = 10;
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "Email";
+                s.Caption = "อีเมลล์";
+                s.ColumnType = MVCxGridViewColumnType.TextBox;
+                var Set = s.PropertiesEdit as TextBoxProperties;
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "Sex";
+                s.Caption = "เพศ";
+                s.ColumnType = MVCxGridViewColumnType.ComboBox;
+                var Set = s.PropertiesEdit as ComboBoxProperties;
+                Set.DataSource = Enumeration.GetAll<modelEnum.sex>();
+                Set.ValueField = "Key";
+                Set.TextField = "Value";
+
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "Address";
+                s.Caption = "ที่อยู่";
+                s.ColumnType = MVCxGridViewColumnType.TextBox;
+                var Set = s.PropertiesEdit as TextBoxProperties;
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "Username";
+                s.Caption = "Username";
+                s.ColumnType = MVCxGridViewColumnType.TextBox;
+                var Set = s.PropertiesEdit as TextBoxProperties;
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "Password";
+                s.Caption = "Password";
+                s.ColumnType = MVCxGridViewColumnType.TextBox;
+                var Set = s.PropertiesEdit as TextBoxProperties;
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "Roles";
+                s.Caption = "Roles";
+                s.ColumnType = MVCxGridViewColumnType.ComboBox;
+                var Set = s.PropertiesEdit as ComboBoxProperties;
+                Set.DataSource = Enumeration.GetAll<modelEnum.Roles>();
+                Set.ValueField = "Key";
+                Set.TextField = "Value";
+            });
+
+
+            settings.CellEditorInitialize = (s, e) =>
+            {
+                ASPxEdit editor = (ASPxEdit)e.Editor;
+                editor.ValidationSettings.Display = Display.None;
+            };
+        });
+}
+@grid.Bind(Model).GetHtml()

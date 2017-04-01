@@ -1,0 +1,8 @@
+﻿@model List<Jobb.Models.meeting>
+@using Jobb.DAL;
+@{
+    ViewBag.Title = "Meeting";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("Meeting_Partial",Model)

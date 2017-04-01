@@ -1,0 +1,99 @@
+﻿
+
+@{
+    ViewBag.Title = "add_apprentice_Partial";
+
+}
+
+@model List<Jobb.Models.add_apprentice>
+@using Jobb.DAL;
+@Html.DevExpress().GridView(
+        settings =>
+        {
+            settings.Name = "add_app";
+            settings.KeyFieldName = "ID_add";
+            settings.Width = Unit.Percentage(100);
+            settings.CallbackRouteValues = new { Controller = "Student", Action = "add_apprentice_Partial" };
+            settings.SettingsEditing.BatchUpdateRouteValues = new { Controller = "Student", Action = "Edit_add_apprentice" };
+            settings.SettingsBehavior.AllowFixedGroups = true;
+
+            settings.SettingsEditing.Mode = GridViewEditingMode.Batch;
+            settings.SettingsEditing.BatchEditSettings.StartEditAction = GridViewBatchStartEditAction.DblClick;
+            settings.SettingsSearchPanel.Visible = true;
+            settings.Settings.ShowGroupPanel = true;
+            settings.SettingsBehavior.ConfirmDelete = true;
+            settings.SettingsSearchPanel.ShowClearButton = true;
+            settings.SettingsSearchPanel.ShowApplyButton = true;
+            settings.CommandColumn.ShowDeleteButton = true;
+            settings.SettingsCommandButton.NewButton.Image.IconID = IconID.SaveSaveandnew16x16office2013;
+            settings.SettingsCommandButton.DeleteButton.Image.IconID = IconID.EditDelete16x16office2013;
+            settings.SettingsCommandButton.CancelButton.Image.IconID = IconID.SaveSaveandclose16x16office2013;
+            settings.SettingsCommandButton.UpdateButton.Image.IconID = IconID.SaveSaveall16x16office2013;
+            settings.SettingsCommandButton.SearchPanelApplyButton.Image.IconID = IconID.ActionsSearch16x16devav;
+            settings.SettingsCommandButton.SearchPanelClearButton.Image.IconID = IconID.EditDelete16x16office2013;
+            settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 2;
+            settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.HideDataCellsWindowLimit;
+            settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 800;
+            settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = true;
+            settings.EditFormLayoutProperties.SettingsAdaptivity.AdaptivityMode = FormLayoutAdaptivityMode.SingleColumnWindowLimit;
+            settings.EditFormLayoutProperties.SettingsAdaptivity.SwitchToSingleColumnAtWindowInnerWidth = 600;
+            settings.CommandColumn.Visible = true;
+            settings.CommandColumn.ShowNewButtonInHeader = true;
+            settings.CommandColumn.ShowDeleteButton = true;
+            settings.SettingsBehavior.ConfirmDelete = true;
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "Week";
+                s.Caption = "สัปดาห์";
+                s.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                var Set = s.PropertiesEdit as SpinEditProperties;
+                Set.NumberFormat = SpinEditNumberFormat.Number;
+                Set.Increment = 1;
+                Set.MinValue = 0;
+                Set.MaxValue = 15;
+                Set.ValidationSettings.Display= Display.Dynamic;
+                s.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "Datetime";
+                s.Caption = "วัน เวลา";
+                s.ColumnType = MVCxGridViewColumnType.DateEdit;
+                var Set = s.PropertiesEdit as DateEditProperties;
+                Set.DisplayFormatInEditMode = false;
+                Set.UseMaskBehavior = true;
+                Set.EditFormat = EditFormat.Custom;
+                Set.EditFormatString = "dd/MM/yyyy hh:mm tt";
+                Set.TimeSectionProperties.Visible = true;
+                Set.TimeSectionProperties.TimeEditProperties.EditFormat = EditFormat.Custom;
+                Set.TimeSectionProperties.TimeEditProperties.EditFormatString = "hh:mm tt";
+
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "Work";
+                s.Caption = "งานที่ปฏิบัติ";
+                s.ColumnType = MVCxGridViewColumnType.TextBox;
+                var Set = s.PropertiesEdit as TextBoxProperties;
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "Type";
+                s.Caption = "Type";
+                s.ReadOnly = true;
+                s.ColumnType = MVCxGridViewColumnType.CheckBox;
+                var Set = s.PropertiesEdit as CheckBoxProperties;
+
+            });
+            settings.InitNewRow = (s, e) =>
+            {
+                e.NewValues["Type"] = 0;
+            };
+            settings.CellEditorInitialize = (s, e) =>
+            {
+                ASPxEdit editor = (ASPxEdit)e.Editor;
+                editor.ValidationSettings.Display = Display.None;
+            };
+        }).Bind(Model).GetHtml();
+
+

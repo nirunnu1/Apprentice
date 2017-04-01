@@ -1,0 +1,120 @@
+﻿
+
+@{
+    ViewBag.Title = "supervision_Partial";
+
+}
+
+@model List<Jobb.Models.add_apprentice>
+@using Jobb.DAL;
+@{
+    var grid = Html.DevExpress().GridView(
+        settings =>
+        {
+            settings.Name = "add_apprentice";
+            settings.KeyFieldName = "ID_add";
+            settings.Width = Unit.Percentage(100);
+            settings.CallbackRouteValues = new { Controller = "Admin", Action = "show_apprenPartial" };
+            settings.SettingsEditing.BatchUpdateRouteValues = new { Controller = "Admin", Action = "Edit_show_apprenPartial" };
+            settings.SettingsEditing.Mode = GridViewEditingMode.Batch;
+            settings.SettingsEditing.BatchEditSettings.StartEditAction = GridViewBatchStartEditAction.DblClick;
+            settings.SettingsSearchPanel.Visible = true;
+            settings.Settings.ShowGroupPanel = true;
+            settings.SettingsBehavior.ConfirmDelete = true;
+            settings.SettingsSearchPanel.ShowClearButton = true;
+            settings.SettingsSearchPanel.ShowApplyButton = true;
+            settings.CommandColumn.ShowDeleteButton = true;
+            settings.SettingsCommandButton.NewButton.Image.IconID = IconID.SaveSaveandnew16x16office2013;
+            settings.SettingsCommandButton.DeleteButton.Image.IconID = IconID.EditDelete16x16office2013;
+            settings.SettingsCommandButton.CancelButton.Image.IconID = IconID.SaveSaveandclose16x16office2013;
+            settings.SettingsCommandButton.UpdateButton.Image.IconID = IconID.SaveSaveall16x16office2013;
+            settings.SettingsCommandButton.SearchPanelApplyButton.Image.IconID = IconID.ActionsSearch16x16devav;
+            settings.SettingsCommandButton.SearchPanelClearButton.Image.IconID = IconID.EditDelete16x16office2013;
+            settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 2;
+            settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.HideDataCellsWindowLimit;
+            settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 800;
+            settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = true;
+            settings.EditFormLayoutProperties.SettingsAdaptivity.AdaptivityMode = FormLayoutAdaptivityMode.SingleColumnWindowLimit;
+            settings.EditFormLayoutProperties.SettingsAdaptivity.SwitchToSingleColumnAtWindowInnerWidth = 600;
+            settings.CommandColumn.Visible = true;
+            //settings.CommandColumn.ShowNewButtonInHeader = true;
+            settings.CommandColumn.ShowDeleteButton = true;
+            settings.SettingsBehavior.ConfirmDelete = true;
+
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "ID_add";
+                s.Caption = "รหัสงาน";
+
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "Week";
+                s.Caption = "สัปดาห์";
+                s.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                var Set = s.PropertiesEdit as SpinEditProperties;
+                Set.MinValue = 0;
+                Set.MaxValue = 10;
+                Set.DisplayFormatString = "0";
+
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "Datetime";
+                s.Caption = "วัน เวลา";
+                s.ColumnType = MVCxGridViewColumnType.DateEdit;
+                var Set = s.PropertiesEdit as DateEditProperties;
+                Set.DisplayFormatInEditMode = false;
+                Set.UseMaskBehavior = true;
+                Set.EditFormat = EditFormat.Custom;
+                Set.EditFormatString = "dd/MM/yyyy hh:mm tt";
+                Set.TimeSectionProperties.Visible = true;
+                Set.TimeSectionProperties.TimeEditProperties.EditFormat = EditFormat.Custom;
+                Set.TimeSectionProperties.TimeEditProperties.EditFormatString = "hh:mm tt";
+            });
+
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "regis.company.Name_Compa";
+                s.Caption = "บริษัท";
+                s.EditFormSettings.Visible = DefaultBoolean.False;
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "Work";
+                s.Caption = "งานที่ปฏิบัติ";
+
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "regis.profile.Fname";
+                s.Caption = "ชื่อนักศึกษา";
+                s.EditFormSettings.Visible = DefaultBoolean.False;
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "ID_add";
+                s.Caption = "ดูข้อมูล";
+                s.ColumnType = MVCxGridViewColumnType.HyperLink;
+
+                HyperLinkProperties properties = s.PropertiesEdit as HyperLinkProperties;
+
+                properties.NavigateUrlFormatString = Url.Content("~/Admin/show_apprenprofile/{0}");
+
+                properties.Text = "ดูข้อมูล";
+            });
+
+            settings.InitNewRow = (s, e) =>
+            {
+                e.NewValues["ID_add"] = 0;
+            };
+            settings.CellEditorInitialize = (s, e) =>
+            {
+                ASPxEdit editor = (ASPxEdit)e.Editor;
+                editor.ValidationSettings.Display = Display.None;
+            };
+        });
+}
+@grid.Bind(Model).GetHtml()
+
+

@@ -1,0 +1,8 @@
+﻿@model List<Jobb.Models.status_coop>
+@using Jobb.DAL;
+    @{
+        ViewBag.Title = "status_coop";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    @Html.Partial("status_coop_Partial", Model)

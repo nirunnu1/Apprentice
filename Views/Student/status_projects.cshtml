@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "status_projects";
+    Layout = "~/Views/Shared/Stu_Layout.cshtml";
+}
+<header>
+    @Html.DevExpress().GetStyleSheets(
+    new StyleSheet { ExtensionSuite = ExtensionSuite.CardView }
+)
+    <script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")" type="text/javascript"></script>
+    @Html.DevExpress().GetScripts(
+    new Script { ExtensionSuite = ExtensionSuite.CardView }
+)
+</header>
+@Html.DevExpress().CardView(settings =>
+{
+    settings.Name = "sta";
+    settings.CallbackRouteValues = new { Controller = "Overview", Action = "OverviewPartial" };
+    settings.Width = Unit.Pixel(600);
+    settings.Columns.Add(s =>
+    {
+        s.FieldName = "regis.profile.Fname";
+        s.Caption = "ชื่อนักศึกษา";
+
+    });
+    settings.Columns.Add(s =>
+    {
+        s.FieldName = "RPCE_S_01";
+        s.Caption = "แบบคำร้องเสนอหัวข้อโครงงาน";
+
+    });
+    settings.Columns.Add(s =>
+    {
+        s.FieldName = "RPCE_S_05";
+        s.Caption = "แบบคำร้องขอสอบโครงร่างโครงงาน";
+
+    }); settings.Columns.Add(s =>
+    {
+        s.FieldName = "RPCE_T_06";
+        s.Caption = "นำเสนอโครงร่างโครงงาน";
+
+    }); settings.Columns.Add(s =>
+    {
+        s.FieldName = "RPCE_S_08";
+        s.Caption = "RPCE_S_08";
+
+    }); settings.Columns.Add(s =>
+    {
+        s.FieldName = "RPCE_D_07";
+        s.Caption = "ผลสอบโครงร่างโครงงาน";
+
+    });
+    settings.SettingsPager.NumericButtonCount = 6;
+    settings.SettingsPager.SettingsTableLayout.ColumnCount = 2;
+    settings.SettingsPager.SettingsTableLayout.RowsPerPage = 2;
+}).Bind(Model).GetHtml()
+
+

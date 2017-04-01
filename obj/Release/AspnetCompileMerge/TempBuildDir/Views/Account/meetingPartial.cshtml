@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Jobb.Models.meeting>
+@using Jobb.Models
+@{Layout = null;}
+ 
+    @foreach (var i in Model)
+    {
+        <p>ประกาศรับสมัครสหกิจตั้งแต่ @i.Datetime_Start   ถึง @i.Datetime_End </p > 
+    }
+

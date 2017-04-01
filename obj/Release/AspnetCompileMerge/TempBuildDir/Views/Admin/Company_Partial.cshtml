@@ -1,0 +1,78 @@
+﻿
+
+@{
+    ViewBag.Title = "Company_Partial";
+
+}
+
+@model List<Jobb.Models.company>
+@using Jobb.DAL;
+@{
+    var grid = Html.DevExpress().GridView(
+        settings =>
+        {
+            settings.Name = "Com";
+            settings.KeyFieldName = "ID_Compa";
+            settings.Width = Unit.Percentage(100);
+            settings.CallbackRouteValues = new { Controller = "Admin", Action = "Company_Partial" };
+            settings.SettingsEditing.BatchUpdateRouteValues = new { Controller = "Admin", Action = "Edit_Company" };
+            settings.SettingsEditing.Mode = GridViewEditingMode.Batch;
+            settings.SettingsEditing.BatchEditSettings.StartEditAction = GridViewBatchStartEditAction.DblClick;
+            settings.SettingsSearchPanel.Visible = true;
+            settings.Settings.ShowGroupPanel = true;
+            settings.SettingsBehavior.ConfirmDelete = true;
+            settings.SettingsSearchPanel.ShowClearButton = true;
+            settings.SettingsSearchPanel.ShowApplyButton = true;
+            settings.CommandColumn.ShowDeleteButton = true;
+            settings.SettingsCommandButton.NewButton.Image.IconID = IconID.SaveSaveandnew16x16office2013;
+            settings.SettingsCommandButton.DeleteButton.Image.IconID = IconID.EditDelete16x16office2013;
+            settings.SettingsCommandButton.CancelButton.Image.IconID = IconID.SaveSaveandclose16x16office2013;
+            settings.SettingsCommandButton.UpdateButton.Image.IconID = IconID.SaveSaveall16x16office2013;
+            settings.SettingsCommandButton.SearchPanelApplyButton.Image.IconID = IconID.ActionsSearch16x16devav;
+            settings.SettingsCommandButton.SearchPanelClearButton.Image.IconID = IconID.EditDelete16x16office2013;
+            settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 2;
+            settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.HideDataCellsWindowLimit;
+            settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 800;
+            settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = true;
+            settings.EditFormLayoutProperties.SettingsAdaptivity.AdaptivityMode = FormLayoutAdaptivityMode.SingleColumnWindowLimit;
+            settings.EditFormLayoutProperties.SettingsAdaptivity.SwitchToSingleColumnAtWindowInnerWidth = 600;
+            settings.CommandColumn.Visible = true;
+            settings.CommandColumn.ShowNewButtonInHeader = true;
+            settings.CommandColumn.ShowDeleteButton = true;
+            settings.SettingsBehavior.ConfirmDelete = true;
+
+
+           
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "Name_Compa";
+                s.Caption = "ชื่อบริษัท";
+                s.ColumnType = MVCxGridViewColumnType.TextBox;
+                var Set = s.PropertiesEdit as TextBoxProperties;
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "Address";
+                s.Caption = "ที่อยู่";
+                s.ColumnType = MVCxGridViewColumnType.TextBox;
+                var Set = s.PropertiesEdit as TextBoxProperties;
+            });
+           
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "Tel";
+                s.Caption = "เบอร์โทร";
+                s.ColumnType = MVCxGridViewColumnType.TextBox;
+                var Set = s.PropertiesEdit as TextBoxProperties;
+            });
+           
+           
+
+            settings.CellEditorInitialize = (s, e) =>
+            {
+                ASPxEdit editor = (ASPxEdit)e.Editor;
+                editor.ValidationSettings.Display = Display.None;
+            };
+        });
+}
+@grid.Bind(Model).GetHtml()

@@ -1,0 +1,74 @@
+﻿
+
+@{
+    ViewBag.Title = "Register_Partial";
+
+}
+
+@model List<Jobb.Models.regis>
+@using Jobb.DAL;
+@{
+    var grid = Html.DevExpress().GridView(
+        settings =>
+        {
+            settings.Name = "Reg";
+            settings.KeyFieldName = "ID_Regis";
+            settings.Width = Unit.Percentage(100);
+            settings.CallbackRouteValues = new { Controller = "Student", Action = "Register_Partial" };
+            settings.SettingsEditing.BatchUpdateRouteValues = new { Controller = "Student", Action = "Edit_Register" };
+            settings.SettingsEditing.Mode = GridViewEditingMode.Batch;
+            settings.SettingsEditing.BatchEditSettings.StartEditAction = GridViewBatchStartEditAction.DblClick;
+            settings.SettingsSearchPanel.Visible = true;
+            settings.Settings.ShowGroupPanel = true;
+            settings.SettingsBehavior.ConfirmDelete = true;
+            settings.SettingsSearchPanel.ShowClearButton = true;
+            settings.SettingsSearchPanel.ShowApplyButton = true;
+            settings.CommandColumn.ShowDeleteButton = true;
+            settings.SettingsCommandButton.NewButton.Image.IconID = IconID.SaveSaveandnew16x16office2013;
+            settings.SettingsCommandButton.DeleteButton.Image.IconID = IconID.EditDelete16x16office2013;
+            settings.SettingsCommandButton.CancelButton.Image.IconID = IconID.SaveSaveandclose16x16office2013;
+            settings.SettingsCommandButton.UpdateButton.Image.IconID = IconID.SaveSaveall16x16office2013;
+            settings.SettingsCommandButton.SearchPanelApplyButton.Image.IconID = IconID.ActionsSearch16x16devav;
+            settings.SettingsCommandButton.SearchPanelClearButton.Image.IconID = IconID.EditDelete16x16office2013;
+            settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 2;
+            settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.HideDataCellsWindowLimit;
+            settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 800;
+            settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = true;
+            settings.EditFormLayoutProperties.SettingsAdaptivity.AdaptivityMode = FormLayoutAdaptivityMode.SingleColumnWindowLimit;
+            settings.EditFormLayoutProperties.SettingsAdaptivity.SwitchToSingleColumnAtWindowInnerWidth = 600;
+            settings.CommandColumn.Visible = true;
+            settings.CommandColumn.ShowNewButtonInHeader = true;
+            settings.CommandColumn.ShowDeleteButton = true;
+            settings.SettingsBehavior.ConfirmDelete = true;
+
+
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "ID_Compa";
+                s.Caption = "บริษัท";
+                s.ColumnType = MVCxGridViewColumnType.ComboBox;
+                var Set = s.PropertiesEdit as ComboBoxProperties;
+                Set.DataSource = DALcompany.getcompany();
+                Set.ValueField = "ID_Compa";
+                Set.TextField = "Name_Compa";
+            });
+            settings.Columns.Add(s =>
+            {
+                s.FieldName = "ID_Resume";
+                s.Caption = "Resume";
+                s.ColumnType = MVCxGridViewColumnType.ComboBox;
+                var Set = s.PropertiesEdit as ComboBoxProperties;
+                Set.DataSource = DALresume.getresume(User.Identity.Name);
+                Set.ValueField = "ID_Resume";
+                Set.TextField = "ID_Resume";
+            });
+            
+            settings.CellEditorInitialize = (s, e) =>
+            {
+                ASPxEdit editor = (ASPxEdit)e.Editor;
+                editor.ValidationSettings.Display = Display.None;
+            };
+        });
+}
+@grid.Bind(Model).GetHtml()
+

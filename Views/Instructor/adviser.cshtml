@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "adviser";
+    Layout = "~/Views/Shared/Ins_Layout.cshtml";
+}
+
+@Html.DevExpress().CardView(settings =>
+{
+    settings.Name = "sta";
+    settings.CallbackRouteValues = new { Controller = "Overview", Action = "OverviewPartial" };
+    settings.Width = Unit.Pixel(600);
+    settings.Columns.Add(s =>
+    {
+        s.FieldName = "profile.Fname";
+        s.Caption = "ชื่อนักศึกษา";
+
+    });
+  
+    settings.SettingsPager.NumericButtonCount = 6;
+    settings.SettingsPager.SettingsTableLayout.ColumnCount = 2;
+    settings.SettingsPager.SettingsTableLayout.RowsPerPage = 2;
+}).Bind(Model).GetHtml()
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Ins_Layout.cshtml";
+}
+
+<div>
+    <div class="accountHeader">
+    </div>
+</div>
+@using Jobb.DAL;
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <table>
+        <tr>
+
+            <th>
+                <div style="color :#FF0000">@ViewBag.getreg</div>
+            </th>
+
+        </tr>
+    </table>
+
+}

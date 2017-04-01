@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "ReportView";
+    Layout = "~/Views/Shared/Stu_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "ReportView";
+}
+<header>
+    @Html.DevExpress().GetStyleSheets(
+    new StyleSheet { ExtensionSuite = ExtensionSuite.HtmlEditor },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.GridView },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.Report },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.RichEdit },
+    new StyleSheet { ExtensionType = ExtensionType.WebDocumentViewer }
+)
+    <script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")" type="text/javascript"></script>
+    @Html.DevExpress().GetScripts(
+    new Script { ExtensionSuite = ExtensionSuite.HtmlEditor },
+    new Script { ExtensionSuite = ExtensionSuite.GridView },
+    new Script { ExtensionSuite = ExtensionSuite.Report },
+    new Script { ExtensionSuite = ExtensionSuite.RichEdit },
+    new Script { ExtensionType = ExtensionType.WebDocumentViewer }
+)
+</header>
+@Html.DevExpress().Ribbon(settings =>
+{
+    settings.Name = "Ribbon";
+    settings.AllowMinimize = false;
+    settings.ShowFileTab = false;
+    settings.ShowGroupLabels = false;
+    settings.Width = Unit.Percentage(100);
+    var tabs = DocumentViewerExtension.DefaultRibbonTabs;
+    var items = tabs
+        .SelectMany(x => x.Groups)
+        .SelectMany(x => x.Items);
+
+    var dropDownSubItems = items
+        .OfType<DevExpress.XtraReports.Web.DocumentViewer.Ribbon.DocumentViewerRibbonDropDownButtonBase>()
+        .SelectMany(x => x.Items);
+
+    var excludedSubItems = dropDownSubItems
+        .Where(x => x is RibbonXlsFormatCommand
+          || x is RibbonMhtFormatCommand
+          || x is RibbonHtmlFormatCommand
+          || x is RibbonPngFormatCommand);
+
+    foreach (var item in excludedSubItems)
+    {
+        item.Visible = false;
+    }
+
+    settings.Tabs.AddRange(tabs);
+}).GetHtml()
+@Html.Partial("DocumentViewerPartial")

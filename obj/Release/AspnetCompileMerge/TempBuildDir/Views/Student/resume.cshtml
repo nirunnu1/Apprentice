@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewBag.Title = "resume";
+    Layout = "~/Views/Shared/Stu_Layout.cshtml";
+}
+
+
+@Html.DevExpress().CardView(settings =>
+{
+    settings.Name = "stu";
+    settings.CallbackRouteValues = new { Controller = "Overview", Action = "OverviewPartial" };
+    settings.Width = Unit.Pixel(600);
+    settings.Columns.Add(set =>
+    {
+        set.FieldName = "profile.ID_Stu";
+        set.Caption = "รหัสนักศึกษา";
+
+    });
+    settings.Columns.Add(set =>
+    {
+        set.FieldName = "profile.Fname";
+        set.Caption = "ชื่อ";
+
+    });
+    settings.Columns.Add(set =>
+    {
+        set.FieldName = "profile.Lname";
+        set.Caption = "นามสกุล";
+
+    }); settings.Columns.Add(set =>
+    {
+        set.FieldName = "profile.Birthday";
+        set.Caption = "วัน เดือน ปีเกิด";
+
+    }); settings.Columns.Add(set =>
+    {
+        set.FieldName = "profile.Tel";
+        set.Caption = "เบอร์โทร";
+
+    }); settings.Columns.Add(set =>
+    {
+        set.FieldName = "profile.Email";
+        set.Caption = "อีเมลล์";
+
+    }); settings.Columns.Add(set =>
+    {
+        set.FieldName = "profile.Sex";
+        set.Caption = "เพศ";
+
+    }); settings.Columns.Add(set =>
+    {
+        set.FieldName = "profile.Address";
+        set.Caption = "ที่อยู่";
+
+    });
+
+    settings.Columns.Add(set =>
+    {
+        set.FieldName = "Grade";
+        set.Caption = "เกรด";
+
+    });
+    settings.Columns.Add(set =>
+    {
+        set.FieldName = "Height";
+        set.Caption = "ส่วนสูง";
+
+    }); settings.Columns.Add(set =>
+    {
+        set.FieldName = "Weight";
+        set.Caption = "น้ำหนัก";
+
+    }); settings.Columns.Add(set =>
+    {
+        set.FieldName = "Status";
+        set.Caption = "สถานะ";
+
+    }); settings.Columns.Add(set =>
+    {
+        set.FieldName = "Nationality";
+        set.Caption = "สัญชาติ";
+
+    }); settings.Columns.Add(set =>
+    {
+        set.FieldName = "Region";
+        set.Caption = "ศาสนา";
+
+    }); settings.Columns.Add(set =>
+    {
+        set.FieldName = "Career_Objective";
+        set.Caption = "Career Objective";
+
+    }); settings.Columns.Add(set =>
+    {
+        set.FieldName = "Skills";
+        set.Caption = "Skills";
+
+    }); settings.Columns.Add(set =>
+    {
+        set.FieldName = "Education";
+        set.Caption = "Education";
+
+    });
+    settings.Columns.Add(set =>
+    {
+        set.FieldName = "Project";
+        set.Caption = "Project";
+
+    });
+
+
+
+    settings.SettingsPager.NumericButtonCount = 6;
+    settings.SettingsPager.SettingsTableLayout.ColumnCount = 2;
+    settings.SettingsPager.SettingsTableLayout.RowsPerPage = 2;
+}).Bind(Model).GetHtml()
+

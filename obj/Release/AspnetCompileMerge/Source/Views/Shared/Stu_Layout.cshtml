@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    @Html.DevExpress().GetStyleSheets(
+    new StyleSheet { ExtensionSuite = ExtensionSuite.HtmlEditor },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.GridView }
+)
+    <script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")" type="text/javascript"></script>
+    @Html.DevExpress().GetScripts(
+    new Script { ExtensionSuite = ExtensionSuite.HtmlEditor },
+    new Script { ExtensionSuite = ExtensionSuite.GridView }
+)
+</head>
+
+<body>
+    <div class="flex-container">
+        <header>
+            <h1>ระบบสหกิจศึกษาออนไลน์</h1>
+        </header>
+
+        <nav>
+            @Html.DevExpress().Menu(settings =>
+       {
+           settings.Name = "Menu";
+           settings.Width = Unit.Percentage(100);
+           settings.EnableAdaptivity = true;
+
+           settings.Items.Add(i =>
+           {
+               i.Text = "ข้อมูลนักศึกษา";
+               i.NavigateUrl = "~/Student/stu";
+           });
+           //settings.Items.Add(i =>
+           //{
+           //    i.Text = "resume";
+           //    i.Items.Add("ดูข้อมูล", "", "", "~/Student/ReportView");
+           //    i.Items.Add("กรอกข้อมูล", "", "", "~/Student/resume_in");
+           //});
+           settings.Items.Add(i =>
+           {
+               i.Text = "ที่ข้อมูลการสมัครสหกิจ";
+               i.NavigateUrl = "~/Student/register";
+               i.AdaptivePriority = 1;
+           });
+           settings.Items.Add(i =>
+           {
+               i.Text = "รายงานการฝึกงาน";
+               i.NavigateUrl = "~/Student/add_apprentice";
+           });
+           settings.Items.Add(i =>
+           {
+               i.Text = "สถานะสหกิจ";
+               i.NavigateUrl = "~/Student/status_cooperative";
+           });
+           settings.Items.Add(i =>
+           {
+               i.Text = "สถานะโครงงานสหกิจ";
+               i.NavigateUrl = "~/Student/status_projects";
+           });
+           settings.Items.Add(i =>
+           {
+               i.Text = "อาจารย์ที่ปรึกษา";
+               i.NavigateUrl = "~/Student/adviser";
+           });
+           settings.Items.Add(i =>
+           {
+               i.Text = "logout";
+               i.NavigateUrl = "~/Account/logout";
+           });
+       }).GetHtml()
+
+            @*<ul>
+                <li>@Html.ActionLink("ข้อมูลนักศึกษา", "stu", "Student")</li>
+                
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">resume</a>
+                    <div class="dropdown-content">
+                        @Html.ActionLink("ดูข้อมูล", "resume", "Student")
+                        @Html.ActionLink("กรอกข้อมูล", "resume_in", "Student")
+                    </div>
+                </li>
+
+                <li>@Html.ActionLink("ข้อมูลการสมัครสหกิจ", "register", "Student")</li>
+                <li>@Html.ActionLink("รายงานการฝึกงาน", "add_apprentice", "Student")</li>
+                <li>@Html.ActionLink("สถานะสหกิจ", "status_cooperative", "Student")</li>
+                <li>@Html.ActionLink("สถานะโครงงานสหกิจ", "status_projects", "Student")</li>
+                <li>@Html.ActionLink("อาจารย์ที่ปรึกษา", "adviser", "Student")</li>
+                <li style="float:right">@Html.ActionLink("logout", "logout", "Account")</li>
+            </ul>*@
+        </nav>
+
+        <article class="article">
+            @RenderBody()
+        </article>
+
+        <footer></footer>
+    </div>
+</body>
+</html>

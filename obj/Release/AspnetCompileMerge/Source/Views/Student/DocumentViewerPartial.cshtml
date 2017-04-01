@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "resume";
+  
+}
+@Html.DevExpress().DocumentViewer(settings =>
+{
+    settings.Name = "ReportDesigner1";
+    settings.Width = Unit.Percentage(100);
+    settings.CallbackRouteValues = new { Controller = "Student", Action = "DocumentViewerPartial" };
+    settings.ExportRouteValues = new { Controller = "Student", Action = "ExportDocumentViewer" };
+    settings.ToolbarMode = DocumentViewerToolbarMode.ExternalRibbon;
+    settings.Report = new XtraReport1()
+    {
+        DataSource = Model
+    };
+    settings.AssociatedRibbonName = "Ribbon";
+}).GetHtml()
+
